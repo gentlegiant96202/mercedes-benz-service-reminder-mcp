@@ -18,8 +18,8 @@ export function parseISODate(str: string): Date | null {
   if (dt.getUTCFullYear() !== y || dt.getUTCMonth() !== m - 1 || dt.getUTCDate() !== d) return null;
   return dt;
 }
-export const toISODate = (dt: Date) => dt.toISOString().slice(0, 10);
-export const todayUTC = (now = new Date()) => new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
+export const toISODate = (dt: Date): string => dt.toISOString().slice(0, 10);
+export const todayUTC = (now: Date = new Date()): Date => new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()));
 
 export function addMonths(dt: Date, months: number): Date {
   const target = new Date(Date.UTC(dt.getUTCFullYear(), dt.getUTCMonth() + months, 1));
@@ -27,7 +27,7 @@ export function addMonths(dt: Date, months: number): Date {
   target.setUTCDate(Math.min(dt.getUTCDate(), lastDay));
   return target;
 }
-export const daysBetween = (a: Date, b: Date) => Math.round((b.getTime() - a.getTime()) / DAY_MS);
+export const daysBetween = (a: Date, b: Date): number => Math.round((b.getTime() - a.getTime()) / DAY_MS);
 export const nextServiceType = (last: string): "A" | "B" => (String(last).toUpperCase() === "A" ? "B" : "A");
 
 export interface NextServiceInput {
@@ -57,7 +57,7 @@ export type NextServiceResult =
       disclaimer: string;
     };
 
-export function computeNextService(input: NextServiceInput, now = new Date()): NextServiceResult {
+export function computeNextService(input: NextServiceInput, now: Date = new Date()): NextServiceResult {
   const last = parseISODate(input.lastServiceDate);
   if (!last) return { ok: false, error: "Please provide a valid last service date (YYYY-MM-DD)." };
   const today = todayUTC(now);

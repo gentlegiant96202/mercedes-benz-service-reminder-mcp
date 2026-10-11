@@ -1,0 +1,12 @@
+{
+  "name": "@silberarrows/mercedes-benz-service-reminder-mcp",
+  "version": "1.0.0",
+  "license": "MIT",
+  "exports": {
+    ".": "./mod.ts",
+    "./service": "./src/service.ts"
+  },
+  "publish": {
+    "include": ["mod.ts", "src/**/*.ts", "README.md", "LICENSE", "jsr.json"]
+  }
+}
