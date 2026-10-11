@@ -6,8 +6,3 @@
   node_bundler = "esbuild"
 
 # /mcp is routed to the function via `config.path` in netlify/functions/mcp.mts.
-# Fallback rewrite for the default functions path:
-[[redirects]]
-  from = "/.netlify/functions/mcp"
-  to = "/mcp"
-  status = 200
