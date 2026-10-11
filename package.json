@@ -1,0 +1,25 @@
+{
+  "name": "mercedes-benz-service-reminder-mcp",
+  "version": "1.0.0",
+  "description": "MCP server by SilberArrows: Mercedes-Benz Service A/B reminders, service explanations, warning light guidance and specialist contact details. Offline, no data collection.",
+  "mcpName": "io.github.silberarrows/mercedes-benz-service-reminder",
+  "type": "module",
+  "bin": { "mercedes-benz-service-reminder-mcp": "dist/index.js" },
+  "main": "dist/index.js",
+  "files": ["dist", "README.md", "LICENSE"],
+  "scripts": {
+    "build": "tsc && chmod +x dist/index.js",
+    "start": "node dist/index.js",
+    "test": "npm run build && node test/client-test.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["mcp", "model-context-protocol", "mercedes-benz", "service-reminder", "assyst", "service-a", "service-b", "dubai", "silberarrows"],
+  "author": "SilberArrows <marketing@silberarrows.com>",
+  "license": "MIT",
+  "homepage": "https://mercedes-benz.silberarrows.com/",
+  "repository": { "type": "git", "url": "git+https://github.com/silberarrows/mercedes-benz-service-reminder-mcp.git" },
+  "bugs": { "url": "https://github.com/silberarrows/mercedes-benz-service-reminder-mcp/issues" },
+  "engines": { "node": ">=18" },
+  "dependencies": { "@modelcontextprotocol/sdk": "^1.17.0", "zod": "^3.23.8" },
+  "devDependencies": { "typescript": "^5.5.0", "@types/node": "^20.0.0" }
+}

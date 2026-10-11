@@ -1,0 +1,112 @@
+
+> mercedes-benz-service-reminder-mcp@1.0.0 test
+> npm run build && node test/client-test.mjs
+
+
+> mercedes-benz-service-reminder-mcp@1.0.0 build
+> tsc && chmod +x dist/index.js
+
+TOOLS: get_next_service, explain_service, warning_light_info, find_specialist
+
+=== get_next_service {"last_service_type":"A","last_service_date":"2026-03-01","last_service_km":40000,"current_km":50000} isError=false
+{
+  "ok": true,
+  "nextType": "B",
+  "dueDateByTime": "2027-03-01",
+  "dueKm": 55000,
+  "estimatedDueDate": "2027-01-31",
+  "dueBy": "mileage",
+  "daysRemaining": 112,
+  "kmRemaining": 5000,
+  "status": "ok",
+  "intervalMonths": 12,
+  "intervalKm": 15000,
+  "summary": "Next service: Service B, due by 2027-03-01 or 55,000 km, whichever comes first. Based on your driving so far, it is estimated for 2027-01-31 (112 day(s), 5,000 km remaining).",
+  "disclaimer": "Intervals are general guidance only (approximately 15,000 km or 12 months, whichever comes first, on most models). Always follow your Mercedes-Benz's own service indicator (ASSYST) and the manufacturer's schedule for your model, as requ
+
+=== get_next_service {"last_service_type":"B","last_service_date":"2025-01-15","last_service_km":60000} isError=false
+{
+  "ok": true,
+  "nextType": "A",
+  "dueDateByTime": "2026-01-15",
+  "dueKm": 75000,
+  "estimatedDueDate": "2026-01-15",
+  "dueBy": "time",
+  "daysRemaining": -269,
+  "kmRemaining": null,
+  "status": "overdue",
+  "intervalMonths": 12,
+  "intervalKm": 15000,
+  "summary": "Next service: Service A, due by 2026-01-15 or 75,000 km, whichever comes first. It is overdue by 269 day(s).",
+  "disclaimer": "Intervals are general guidance only (approximately 15,000 km or 12 months, whichever comes first, on most models). Always follow your Mercedes-Benz's own service indicator (ASSYST) and the manufacturer's schedule for your model, as requirements vary with model, age, mileage and driving conditions."
+
+=== get_next_service {"last_service_type":"A","last_service_date":"2030-01-01","last_service_km":1} isError=true
+{
+  "ok": false,
+  "error": "Last service date cannot be in the future."
+}
+
+=== explain_service {"service":"A"} isError=false
+{
+  "title": "Mercedes-Benz Service A",
+  "overview": "Service A is the smaller routine maintenance interval for Mercedes-Benz vehicles, typically due after approximately 15,000 km or one year, depending on driving conditions and the vehicle's ASSYST service calculations.",
+  "typicallyIncludes": [
+    "Engine oil replacement (low-ash oils such as MB 229.52 specification 5W-30 are commonly used on modern models)",
+    "Engine oil filter replacement",
+    "Fluid level inspection and correction, with minor top-ups where required",
+    "Tyre condition and pressure checks",
+    "Brake inspection",
+    "Visual inspection of key systems and components",
+    "Maintenance counter reset"
+  ],
+  "note
+
+=== explain_service {"service":"B"} isError=false
+{
+  "title": "Mercedes-Benz Service B",
+  "overview": "Service B is the more extensive interval: it includes additional maintenance items and inspections compared with Service A. It normally follows a Service A at the next interval (approximately 15,000 km or 12 months later on most models).",
+  "typicallyIncludes": [
+    "The routine Service A items (engine oil and oil filter replacement, fluid checks, tyre and brake inspection, maintenance counter reset)",
+    "Additional maintenance items and inspections, which vary by model, age and mileage"
+  ],
+  "notes": [
+    "The exact requirements vary depending on model, age and mileage; the vehicle's service indicator shows what is due.",
+    "Br
+
+=== warning_light_info {"light":"flashing check engine"} isError=false
+{
+  "found": true,
+  "id": "check_engine_flashing",
+  "name": "Check engine lamp (flashing)",
+  "meaning": "On some cars the lamp flashes during a severe misfire. Unburned fuel can enter the exhaust, overheat and damage the catalytic converter.",
+  "advice": "Treat as urgent: reduce load, stop driving when it is safe to do so, and arrange diagnosis before continuing.",
+  "note": "General information only, not a diagnosis. If in doubt, stop when it is safe to do so and consult your owner's manual or a Mercedes-Benz specialist.",
+  "specialist": "SilberArrows - Mercedes-Benz Service Centre, +971 4 380 5515"
+}
+
+=== warning_light_info {} isError=false
+{
+  "covered": [
+    "Check engine lamp (steady)",
+    "Check engine lamp (flashing)",
+    "Reduced power / limp mode message",
+    "Brake, ABS or ESP warning",
+    "Battery / electrical warning messages",
+    "Service due indicator (ASSYST)"
+  ],
+  "note": "General information only, not a diagnosis. If in doubt, stop when it is safe to do so and consult your owner's manual or a Mercedes-Benz specialist."
+}
+
+=== find_specialist {} isError=false
+{
+  "name": "SilberArrows - Mercedes-Benz Service Centre",
+  "address": "Al Manara St, Al Quoz Industrial Area 1, Dubai, United Arab Emirates",
+  "phone": "+971 4 380 5515",
+  "openingHours": {
+    "Monday–Saturday": "08:00–18:00",
+    "Sunday": "Closed"
+  },
+  "website": "https://mercedes-benz.silberarrows.com/",
+  "groupWebsite": "https://www.silberarrows.com/",
+  "services": "Mercedes-Benz Service A and Service B, diagnostics, brake service and general Mercedes-Benz maintenance in Dubai."
+}
