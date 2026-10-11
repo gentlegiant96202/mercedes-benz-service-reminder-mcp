@@ -108,3 +108,12 @@ Mercedes-Benz is a trademark of Mercedes-Benz Group AG. This project is independ
 ## Licence
 
 [MIT](LICENSE) © SilberArrows
+
+## Remote endpoint
+
+This server can also run as a stateless Streamable HTTP MCP endpoint on Netlify Functions (`netlify/functions/mcp.mts`, served at `/mcp`).
+
+- Live URL: _not yet deployed_ (will be `https://<site>.netlify.app/mcp`)
+- Client config: `{ "mcpServers": { "mercedes-benz-service-reminder": { "url": "https://<site>.netlify.app/mcp" } } }`
+- Deploy your own: `npx netlify-cli deploy --prod` (uses `netlify.toml`)
+- Test: `node test/http-client-test.mjs https://<site>.netlify.app/mcp`

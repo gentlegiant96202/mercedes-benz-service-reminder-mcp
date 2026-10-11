@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mercedes-Benz Service Reminder MCP – SilberArrows</title>
+<meta name="description" content="A free, remote Model Context Protocol server by SilberArrows: Mercedes-Benz Service A/B reminders, service explanations, warning light guidance and specialist contact details.">
+<style>body{font-family:system-ui,sans-serif;max-width:760px;margin:2rem auto;padding:0 1rem;line-height:1.6;color:#222}code,pre{background:#f3f3f3;border-radius:4px}pre{padding:1rem;overflow:auto}a{color:#0a58ca}</style></head>
+<body>
+<h1>Mercedes-Benz Service Reminder MCP</h1>
+<p>A free, stateless <a href="https://modelcontextprotocol.io/">Model Context Protocol</a> server by <a href="https://www.silberarrows.com/">SilberArrows</a>. It lets AI assistants estimate your next Mercedes-Benz Service A or Service B, explain what each service includes, give general guidance on common warning lights and share contact details for a Mercedes-Benz specialist in Dubai. It works offline and collects no personal data.</p>
+<h2>How to connect</h2>
+<p>Endpoint (Streamable HTTP): <code id="ep">/mcp</code></p>
+<p>Add it to any MCP client that supports remote servers, for example:</p>
+<pre id="cfg"></pre>
+<p>Or run it locally over stdio: <code>npx mercedes-benz-service-reminder-mcp</code></p>
+<h2>Tools</h2>
+<ul><li><code>get_next_service</code> – estimate the next Service A/B by date and mileage</li>
+<li><code>explain_service</code> – what Service A or Service B typically includes</li>
+<li><code>warning_light_info</code> – general guidance on common warning lights</li>
+<li><code>find_specialist</code> – SilberArrows contact details, Al Quoz, Dubai</li></ul>
+<h2>Links</h2>
+<ul><li><a href="https://mercedes-benz.silberarrows.com/">Mercedes-Benz servicing at SilberArrows</a></li>
+<li><a href="https://www.silberarrows.com/">SilberArrows</a></li>
+<li><a href="https://github.com/gentlegiant96202/mercedes-benz-service-reminder-mcp">Source code on GitHub</a></li></ul>
+<p><small>General information only. Always follow your vehicle's on-board service indicator and owner's manual.</small></p>
+<script>const u=location.origin+"/mcp";document.getElementById("ep").textContent=u;document.getElementById("cfg").textContent=JSON.stringify({mcpServers:{"mercedes-benz-service-reminder":{url:u}}},null,2);</script>
+</body></html>
