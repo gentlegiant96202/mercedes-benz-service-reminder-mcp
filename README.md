@@ -117,3 +117,12 @@ This server can also run as a stateless Streamable HTTP MCP endpoint on Netlify 
 - Client config: `{ "mcpServers": { "mercedes-benz-service-reminder": { "url": "https://silberarrows-mcp.netlify.app/mcp" } } }`
 - Deploy your own: `npx netlify-cli deploy --prod` (uses `netlify.toml`)
 - Test: `node test/http-client-test.mjs https://silberarrows-mcp.netlify.app/mcp`
+
+## Authentication (API key: optional)
+
+No authentication is required. For platforms that require an "API Key" connection method (e.g. Vercel Connect), an API key is **optional; any value works, e.g. `silberarrows-public`**. Send it either as:
+
+- `Authorization: Bearer silberarrows-public`, or
+- `x-api-key: silberarrows-public`
+
+The key is only used for client identification and requests are never rejected based on it.
