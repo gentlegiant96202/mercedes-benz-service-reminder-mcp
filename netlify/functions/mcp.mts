@@ -22,7 +22,7 @@ const json = (obj: unknown, status = 200, extra: Record<string, string> = {}) =>
 
 export default async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
-  if (req.method === "GET") return json({ name: "Mercedes-Benz Service Reminder MCP – SilberArrows", transport: "streamable-http (stateless)", usage: "POST JSON-RPC MCP messages to this URL", repo: "https://github.com/gentlegiant96202/mercedes-benz-service-reminder-mcp" }, 405, { Allow: "POST, OPTIONS" });
+  if (req.method === "GET") return json({ name: "Mercedes-Benz Service Reminder MCP - SilberArrows", transport: "streamable-http (stateless)", usage: "POST JSON-RPC MCP messages to this URL", repo: "https://github.com/gentlegiant96202/mercedes-benz-service-reminder-mcp" }, 405, { Allow: "POST, OPTIONS" });
   if (req.method !== "POST") return json({ jsonrpc: "2.0", error: { code: -32000, message: "Method not allowed" }, id: null }, 405, { Allow: "POST, OPTIONS" });
   getApiKey(req); // optional; never rejects
   const server = createServer();

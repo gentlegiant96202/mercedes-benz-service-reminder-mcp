@@ -1,0 +1,290 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Mercedes-Benz Service Reminder API - SilberArrows",
+    "version": "1.0.0",
+    "description": "REST API by SilberArrows Dubai for Mercedes-Benz Service A/B reminders, service explanations, warning-light guidance, and specialist contact details. Intervals are general guidance only (about 15,000 km or 12 months, whichever comes first, on most models). Always follow your vehicle ASSYST indicator. Homepage: https://mercedes-benz.silberarrows.com/",
+    "contact": {
+      "name": "SilberArrows",
+      "url": "https://mercedes-benz.silberarrows.com/",
+      "email": "marketing@silberarrows.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-category": "Transportation",
+    "x-website": "https://mercedes-benz.silberarrows.com/"
+  },
+  "servers": [
+    {
+      "url": "https://silberarrows-mcp.netlify.app",
+      "description": "Production (Netlify)"
+    }
+  ],
+  "paths": {
+    "/api/next-service": {
+      "get": {
+        "operationId": "getNextService",
+        "summary": "Estimate next Mercedes-Benz Service A/B",
+        "description": "Estimate the next Service A or Service B from the last service type, date, and mileage using an ASSYST-style alternating schedule. Default interval: 15,000 km or 12 months, whichever comes first.",
+        "tags": ["Service"],
+        "parameters": [
+          {
+            "name": "last_service_type",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string", "enum": ["A", "B", "a", "b"] },
+            "description": "Type of the last service: A or B"
+          },
+          {
+            "name": "last_service_date",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string", "format": "date", "example": "2026-03-01" },
+            "description": "Date of the last service (YYYY-MM-DD)"
+          },
+          {
+            "name": "last_service_km",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "number", "minimum": 0, "example": 40000 },
+            "description": "Odometer reading at the last service, in km"
+          },
+          {
+            "name": "current_km",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "number", "minimum": 0, "example": 50000 },
+            "description": "Current odometer reading in km (optional; improves the estimate)"
+          },
+          {
+            "name": "interval_months",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "minimum": 1, "maximum": 36, "default": 12 },
+            "description": "Override time interval in months (default 12)"
+          },
+          {
+            "name": "interval_km",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "minimum": 1000, "maximum": 50000, "default": 15000 },
+            "description": "Override distance interval in km (default 15000)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Next service estimate",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NextServiceSuccess" }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or missing parameters",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/service-info": {
+      "get": {
+        "operationId": "getServiceInfo",
+        "summary": "Explain Service A or Service B",
+        "description": "Explain what a Mercedes-Benz Service A or Service B typically includes.",
+        "tags": ["Service"],
+        "parameters": [
+          {
+            "name": "service",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string", "enum": ["A", "B", "a", "b"] },
+            "description": "Service type to explain: A or B"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Service explanation",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ServiceInfoSuccess" }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or missing service parameter",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/warning-light": {
+      "get": {
+        "operationId": "getWarningLight",
+        "summary": "Warning light guidance",
+        "description": "General guidance on common Mercedes-Benz warning lights and messages. Omit light to list covered entries. Not a diagnosis.",
+        "tags": ["Warning lights"],
+        "parameters": [
+          {
+            "name": "light",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "flashing check engine"
+            },
+            "description": "Warning light or message to look up (for example check engine, limp mode, ABS, battery, service due). Omit to list covered lights."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Match found, or list of covered lights when light is omitted",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WarningLightSuccess" }
+              }
+            }
+          },
+          "404": {
+            "description": "No matching warning light entry",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WarningLightNotFound" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/contact": {
+      "get": {
+        "operationId": "getContact",
+        "summary": "SilberArrows specialist contact",
+        "description": "Contact details for SilberArrows, a Mercedes-Benz service centre in Al Quoz, Dubai.",
+        "tags": ["Contact"],
+        "responses": {
+          "200": {
+            "description": "Contact details",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ContactSuccess" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "required": ["ok", "error"],
+        "properties": {
+          "ok": { "type": "boolean", "enum": [false] },
+          "error": { "type": "string" }
+        }
+      },
+      "NextServiceSuccess": {
+        "type": "object",
+        "required": ["ok", "nextType", "summary", "disclaimer"],
+        "properties": {
+          "ok": { "type": "boolean", "enum": [true] },
+          "nextType": { "type": "string", "enum": ["A", "B"] },
+          "dueDateByTime": { "type": "string", "format": "date" },
+          "dueKm": { "type": "number" },
+          "estimatedDueDate": { "type": "string", "format": "date" },
+          "dueBy": { "type": "string", "enum": ["time", "mileage"] },
+          "daysRemaining": { "type": "integer" },
+          "kmRemaining": { "type": "number", "nullable": true },
+          "status": { "type": "string", "enum": ["ok", "due-soon", "overdue"] },
+          "intervalMonths": { "type": "integer" },
+          "intervalKm": { "type": "integer" },
+          "summary": { "type": "string" },
+          "disclaimer": { "type": "string" }
+        }
+      },
+      "ServiceInfoSuccess": {
+        "type": "object",
+        "required": ["ok", "title", "overview", "disclaimer"],
+        "properties": {
+          "ok": { "type": "boolean", "enum": [true] },
+          "title": { "type": "string" },
+          "overview": { "type": "string" },
+          "typicallyIncludes": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "notes": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "sources": {
+            "type": "array",
+            "items": { "type": "string", "format": "uri" }
+          },
+          "disclaimer": { "type": "string" }
+        }
+      },
+      "WarningLightSuccess": {
+        "type": "object",
+        "properties": {
+          "ok": { "type": "boolean", "enum": [true] },
+          "found": { "type": "boolean" },
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "meaning": { "type": "string" },
+          "advice": { "type": "string" },
+          "note": { "type": "string" },
+          "specialist": { "type": "string" },
+          "covered": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      },
+      "WarningLightNotFound": {
+        "type": "object",
+        "properties": {
+          "ok": { "type": "boolean", "enum": [true] },
+          "found": { "type": "boolean", "enum": [false] },
+          "message": { "type": "string" },
+          "covered": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "note": { "type": "string" }
+        }
+      },
+      "ContactSuccess": {
+        "type": "object",
+        "required": ["ok", "name", "website"],
+        "properties": {
+          "ok": { "type": "boolean", "enum": [true] },
+          "name": { "type": "string" },
+          "address": { "type": "string" },
+          "phone": { "type": "string" },
+          "openingHours": { "type": "object", "additionalProperties": { "type": "string" } },
+          "website": { "type": "string", "format": "uri" },
+          "groupWebsite": { "type": "string", "format": "uri" },
+          "services": { "type": "string" }
+        }
+      }
+    }
+  },
+  "tags": [
+    { "name": "Service", "description": "Service A/B scheduling and explanations" },
+    { "name": "Warning lights", "description": "General Mercedes-Benz warning light guidance" },
+    { "name": "Contact", "description": "SilberArrows Dubai contact details" }
+  ]
+}

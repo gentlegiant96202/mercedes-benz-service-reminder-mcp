@@ -86,7 +86,7 @@ export const SPECIALIST = {
   name: "SilberArrows - Mercedes-Benz Service Centre",
   address: "Al Manara St, Al Quoz Industrial Area 1, Dubai, United Arab Emirates",
   phone: "+971 4 380 5515",
-  openingHours: { "Monday–Saturday": "08:00–18:00", Sunday: "Closed" },
+  openingHours: { "Monday-Saturday": "08:00-18:00", Sunday: "Closed" },
   website: "https://mercedes-benz.silberarrows.com/",
   groupWebsite: "https://www.silberarrows.com/",
   services: "Mercedes-Benz Service A and Service B, diagnostics, brake service and general Mercedes-Benz maintenance in Dubai.",

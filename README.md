@@ -1,4 +1,4 @@
-# Mercedes-Benz Service Reminder – SilberArrows (MCP server)
+# Mercedes-Benz Service Reminder - SilberArrows (MCP server)
 
 A [Model Context Protocol](https://modelcontextprotocol.io) server that helps Mercedes-Benz owners plan their next Service A or Service B, understand what each service typically includes, read general guidance on common warning lights, and find a Mercedes-Benz specialist in Dubai.
 
@@ -82,7 +82,7 @@ Ask your assistant:
   `get_next_service` → Service B, due by 2027-03-01 or 55,000 km, whichever comes first; estimated for late January 2027 based on driving so far.
 
 - "What's included in a Mercedes-Benz Service B?" → `explain_service`
-- "My Mercedes-Benz check engine light is flashing – what does it mean?" → `warning_light_info`
+- "My Mercedes-Benz check engine light is flashing - what does it mean?" → `warning_light_info`
 - "Where can I get my Mercedes-Benz serviced in Dubai?" → `find_specialist`
 
 ## Development
@@ -99,7 +99,7 @@ SilberArrows is a Mercedes-Benz service centre in Al Quoz Industrial Area 1, Dub
 
 - Address: Al Manara St, Al Quoz Industrial Area 1, Dubai
 - Phone: +971 4 380 5515
-- Opening hours: Monday–Saturday 08:00–18:00, closed Sunday
+- Opening hours: Monday-Saturday 08:00-18:00, closed Sunday
 - Mercedes-Benz service: [https://mercedes-benz.silberarrows.com/](https://mercedes-benz.silberarrows.com/)
 - SilberArrows: [https://www.silberarrows.com/](https://www.silberarrows.com/)
 
@@ -117,6 +117,25 @@ This server can also run as a stateless Streamable HTTP MCP endpoint on Netlify 
 - Client config: `{ "mcpServers": { "mercedes-benz-service-reminder": { "url": "https://silberarrows-mcp.netlify.app/mcp" } } }`
 - Deploy your own: `npx netlify-cli deploy --prod` (uses `netlify.toml`)
 - Test: `node test/http-client-test.mjs https://silberarrows-mcp.netlify.app/mcp`
+
+## REST API
+
+Plain JSON REST endpoints on the same Netlify site (CORS enabled). They reuse `src/service.ts` / `src/data.ts` and do not replace `/mcp`.
+
+| Method | Path | Purpose |
+| --- | --- | --- |
+| `GET` | `/api/next-service` | Next Service A/B estimate (`last_service_type`, `last_service_date`, `last_service_km`, optional `current_km`, `interval_months`, `interval_km`) |
+| `GET` | `/api/service-info` | Explain Service A or B (`service=A` or `service=B`) |
+| `GET` | `/api/warning-light` | Warning light guidance (optional `light`) |
+| `GET` | `/api/contact` | SilberArrows Dubai contact details |
+
+OpenAPI 3 spec (RapidAPI Studio import): [`openapi.json`](./openapi.json). Also served at `https://silberarrows-mcp.netlify.app/openapi.json`.
+
+Smoke check: `npm run test:curl` (or `bash test/curl-api-check.sh https://silberarrows-mcp.netlify.app`).
+
+## ClawHub skill
+
+Skill package for OpenClaw / ClawHub: [`skills/mercedes-benz-service-reminder/SKILL.md`](./skills/mercedes-benz-service-reminder/SKILL.md). Preview publish with `npx clawhub skill publish ./skills/mercedes-benz-service-reminder --dry-run` (do not publish unless intentional).
 
 ## Authentication (API key: optional)
 

@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.gentlegiant96202/mercedes-benz-service-reminder",
-  "title": "Mercedes-Benz Service Reminder – SilberArrows",
+  "title": "Mercedes-Benz Service Reminder - SilberArrows",
   "description": "Mercedes-Benz Service A/B reminders, service explanations and warning-light guidance (Dubai).",
   "websiteUrl": "https://mercedes-benz.silberarrows.com/",
   "repository": { "url": "https://github.com/gentlegiant96202/mercedes-benz-service-reminder-mcp", "source": "github" },
