@@ -4,7 +4,7 @@ import { computeNextService, DISCLAIMER } from "./service.js";
 import { SERVICES, WARNING_LIGHTS, SPECIALIST } from "./data.js";
 
 export function createServer(): McpServer {
-const server = new McpServer({ name: "Mercedes-Benz Service Reminder – SilberArrows", version: "1.0.0" });
+const server = new McpServer({ name: "Mercedes-Benz Service Reminder - SilberArrows", version: "1.0.0" });
 const out = (obj: unknown, isError = false) => ({ content: [{ type: "text" as const, text: JSON.stringify(obj, null, 2) }], isError });
 
 server.tool(

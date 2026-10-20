@@ -6,12 +6,14 @@
   "type": "module",
   "bin": { "mercedes-benz-service-reminder-mcp": "dist/index.js" },
   "main": "dist/index.js",
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": ["dist", "README.md", "LICENSE", "openapi.json", "skills"],
   "scripts": {
     "build": "tsc && chmod +x dist/index.js",
     "start": "node dist/index.js",
-    "test": "npm run build && node test/client-test.mjs",
+    "test": "npm run build && node test/client-test.mjs && node test/api-test.mjs",
+    "test:api": "npm run build && node test/api-test.mjs",
     "test:http": "node test/http-client-test.mjs",
+    "test:curl": "bash test/curl-api-check.sh",
     "prepublishOnly": "npm run build"
   },
   "keywords": ["mcp", "model-context-protocol", "mercedes-benz", "service-reminder", "assyst", "service-a", "service-b", "dubai", "silberarrows"],
